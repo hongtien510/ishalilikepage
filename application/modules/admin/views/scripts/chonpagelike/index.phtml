@@ -1,0 +1,37 @@
+<?php
+	$listPage = $this->listPage;
+?>
+<form action="chonpagelike/luupagelike" method="post">
+<input type="submit" value="lưu lại"/>
+<div class="clear"></div>
+<ul class="chon_page_like">
+	<?php
+	$pageLike = App_Models_PagelikeModel::getInstance();
+		for($i=0; $i<count($listPage); $i++)
+		{
+			$idpage = $listPage[$i]['id_fb_page'];
+			$flag = $pageLike->checkPagelike($idpage);
+			if($flag == 1)
+				$checked = 'checked';
+			else
+				$checked = '';
+	?>
+		<label>
+			<li>
+				<input class="input_chon_like" type="checkbox" name="pagelike[]" value="<?php echo $idpage;?>" <?php echo $checked ?>/>
+				<span class="name_page_like"><?php echo $listPage[$i]['page_name'] ?></span>
+			</li>
+		</label>
+	<?php } ?>
+	<!--
+	<label>
+		<li>
+			<input class="input_chon_like" type="checkbox" name="pagelike[]" value="1"/>
+			<span class="name_page_like">Phtpht</span>
+		</li>
+	</label>
+	-->
+</ul>
+<div class="clear"></div>
+<input type="submit" value="lưu lại"/>
+<form>

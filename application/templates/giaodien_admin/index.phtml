@@ -66,13 +66,17 @@
 		<?php
 		$controllerName = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
 		
-		$index = ''; $config = ''; $changepass = '';
+		$index = ''; $config = ''; $changepass = ''; $chonpagelike = ''; $sapxeppagelike = '';
 		if($controllerName == 'index')
 			$index = 'active';
 		if($controllerName == 'config')
 			$config = 'active';
 		if($controllerName == 'changepass')
 			$changepass = 'active';
+		if($controllerName == 'chonpagelike')
+			$chonpagelike = 'active';
+		if($controllerName == 'sapxeppagelike')
+			$sapxeppagelike = 'active';
 		?>
 		
 		<div class="list_menu">
@@ -86,6 +90,12 @@
 				</li>
 				<li class="menu <?php echo $config ?>">
 						<a style="display: inline;" class="" href="<?php echo ROOT_DOMAIN ?>/admin/config"  target="_top">Cấu hình</a>
+				</li>
+				<li class="menu <?php echo $chonpagelike ?>">
+						<a style="display: inline;" class="" href="<?php echo ROOT_DOMAIN ?>/admin/chonpagelike"  target="_top">Chọn page like</a>
+				</li>
+				<li class="menu <?php echo $sapxeppagelike ?>">
+						<a style="display: inline;" class="" href="<?php echo ROOT_DOMAIN ?>/admin/sapxeppagelike"  target="_top">Sắp xếp page</a>
 				</li>
 				<li class="menu <?php echo $changepass ?>">
 						<a style="display: inline;" class="" href="<?php echo ROOT_DOMAIN ?>/admin/changepass"  target="_top">Đổi mật khẩu</a>

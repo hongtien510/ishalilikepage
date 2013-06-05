@@ -1,0 +1,33 @@
+<?php
+	$listPage = $this->listPage;
+?>
+<form action="sapxeppagelike/capnhatpagelike" method="post">
+<input type="submit" value="lưu lại"/>
+<table width="100%" cellspacing="1" border="1" class="config_page">
+	<tr height="35px" bgcolor="whitesmoke">
+		<th width="35px">Stt</th>
+		<th width="">Tên fanpages</th>
+		<th width="100px">Thứ tự</th>
+		<th width="100px">Loại bỏ</th>
+	</tr>
+	<?php
+		for($i=0; $i<count($listPage); $i++)
+		{
+	?>
+	<tr class="<?php if($i%2==0) echo 'cl2'; else echo 'cl1'; ?>">
+		<td align="center"><?php echo $i+1; ?></td>
+		<td>
+			<a href="<?php echo $listPage[$i]['linkpage'] ?>" target="_blank"><?php echo $listPage[$i]['pagename'] ?></a>
+		</td>
+		
+		<td align="center">
+			<input style="text-align:center" class="input_style1" type="text" name="<?php echo $listPage[$i]['idpage'] ?>" value="<?php echo $listPage[$i]['thutu'] ?>"/>
+		</td>
+		<td align="center">
+			<a onclick="return confirm('Bạn có chắc chắn muốn xóa Page này ra khỏi danh sách Like.')" href="sapxeppagelike/xoapagelike?idpage=<?php echo $listPage[$i]['idpage'] ?>"><img src="<?php echo APP_DOMAIN . '/application/templates/giaodien_admin/images/xoa.png' ?>" alt="xoa" title="Bỏ Page này ra danh sách like"/></a>
+		</td>
+	</tr>
+	<?php } ?>
+</table>
+<input type="submit" value="lưu lại"/>
+</form>
