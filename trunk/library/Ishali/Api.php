@@ -39,7 +39,7 @@ class Ishali_Api {
 	        error_log('Unknown algorithm. Expected HMAC-SHA256');
 	        return null;
 	    }
-	 
+	
 	    // check sig
 	    $expected_sig = hash_hmac('sha256', $payload, $secret, $raw = true);
 	    if ($sig !== $expected_sig) {

@@ -352,54 +352,24 @@ p.loading_img_ch{margin:-22px 0 0 230px; display:none}
 
 table.config_page td{height:25px;}
 
-
-
-.ctn_ttsp{
-	width:96%;
-	//background:#FFFCA8;
-	
-	margin:0 auto;
-	margin-top:20px;
-}
-.list_tab{
-	width:100%; height:30px; //background:red;
-	border-bottom:3px solid #3B5998;
-	margin-top:20px;
-}
-
-ul.ul_list_tab li{
-	list-style:none;
-	float:left;
-	background:#EFEFEF;
-	border-radius:5px 5px 0px 0px;
-	margin-right:1px;
-	height:23px;
-	padding-top:7px;
-}
-ul.ul_list_tab li a{
-	color:black;
-	font-size:13px;
-	font-weight:bold;
-	padding:6px 30px;
-	text-decoration:none;
-}
-ul.ul_list_tab li.active{
-	background:#3B5998;
-}
-ul.ul_list_tab li.active a{color:white;}
-
-.ctn_tab{
-	width:713px;
-	//height:500px;
-	margin:0px auto;
-	background:white;
-	//box-shadow: 0 0 3px black;
-	border:1px solid #3B5998;
-}
-
 .cl1{background:papayawhip}
 .cl2{background:peachpuff}
 table.config_page a{text-decoration:none}
+
+/* Chon Page Like */
+ul.chon_page_like{display:inline-block}
+ul.chon_page_like li{
+	border: 1px solid #006633;
+    float: left;
+    height: 25px;
+    list-style: none outside none;
+    margin: 5px 4px 5px 10px;
+    overflow: auto;
+    padding: 5px 0 0 5px;
+    width: 225px;
+	background:#FFFCA8;
+}
+
 
 
 

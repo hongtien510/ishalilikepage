@@ -1,13 +1,12 @@
-<div id="fb-root"></div>
-<script src="http://connect.facebook.net/en_US/all.js"></script>
-<script>
-
-	FB.init({
-	 appId  : '117126145156645',
-	 status : true, // check login status
-	 cookie : true, // enable cookies to allow the server to access the session
-	 xfbml  : true// parse XFBML
-	 });
-	FB.Canvas.setSize({ width: 800, height: 2000 });
-
- </script>
+<?php
+	$linkAppPage = $this->linkAppPage; 
+	if($linkAppPage != "")
+	{
+		echo "<script>chuyenTrang('$linkAppPage');</script>";
+		//echo "<a href='javascript:;' onclick = \"chuyenTrang('$linkAppPage')\">Click Here</a>";
+	}
+	else
+	{
+		echo 'Thanks you';
+	}
+?>

@@ -10,12 +10,11 @@ class App_Controller_FrontController extends Zend_Controller_Action {
 	
         $facebook = new Ishali_Facebook();
 		$page = App_Models_PagesModel::getInstance();
-		//$facebook->begins_works(0);
-        //$this->view->id_userr = $facebook->getuserfbid();
-		//$this->view->id_fb_page = $facebook->getpageid();
-		
-		
-        $facebook->getuserfbid();
+		$facebook->begins_works(0);
+
+        $idUserFB = $facebook->getuserfbid();
+		$_SESSION['idUserFB'] = $idUserFB;
+
 		if($facebook->getpageid() != "")
 		{
 			@$idpage = $facebook->getpageid();

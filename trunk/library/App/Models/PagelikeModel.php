@@ -1,0 +1,153 @@
+<?php
+//$this->_SESSION=new Zend_Session_Namespace();
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Description of BangmauModel
+ *
+ * @author root
+ */
+class App_Models_PagelikeModel {
+
+    private $_db;
+    private static $_instance;
+
+    public static function getInstance() {
+        if (self::$_instance == NULL) {
+            self::$_instance = new App_Models_PagelikeModel();
+            self::$_instance->_db = App_Storage_Mysql_Connector::getInstance();
+        }
+        return self::$_instance;
+    }
+
+	public function getPage()
+	{
+		$store = App_Models_StoreModel::getInstance();
+		$sql = "select id_fb_page, page_name from ishali_pages where an_hien = 1";
+		$data = $store->SelectQuery($sql);
+		if(count($data)>0)
+			return $data;
+		else
+			return "";
+	}
+	
+	public function thongTinTrang($idpage)
+	{
+		$store = App_Models_StoreModel::getInstance();
+		$sql = "select page_name, link_page from ishali_pages where id_fb_page = '". $idpage ."'";
+		$data = $store->SelectQuery($sql);
+		return $data;
+	}
+	
+	public function xoaPageLike()
+	{
+		$store = App_Models_StoreModel::getInstance();
+		$sql = "DELETE FROM ishali_pages_like WHERE idpagelike > 0";
+		$data = $store->InsertDeleteUpdateQuery($sql);
+		return $data;
+	}
+	
+	public function luuPageLike($listPage)
+	{
+		$this->xoaPageLike();
+		
+		$store = App_Models_StoreModel::getInstance();
+		for($i=0; $i<count($listPage); $i++)
+		{
+			$idPage = $listPage[$i];
+			$info = $this->thongTinTrang($idPage);
+			$namePage = $info[0]['page_name'];
+			$linkPage = $info[0]['link_page'];
+			
+			$sql = "insert into ishali_pages_like(idpage, pagename, linkpage, thutu) values ('". $idPage ."', '". $namePage ."', '". $linkPage ."', '". ($i+1) ."')";
+			$data = $store->InsertDeleteUpdateQuery($sql);
+			if($data == 0)
+				return 0;
+		}
+		return 1;
+	}
+	
+
+	public function getPageLike()
+	{
+		$store = App_Models_StoreModel::getInstance();
+		$sql = "select idpage, pagename, linkpage, thutu from ishali_pages_like order by thutu";
+		$data = $store->SelectQuery($sql);
+		if(count($data)>0)
+			return $data;
+		else
+			return "";
+	}
+	
+	public function checkPagelike($idpage)
+	{
+		$store = App_Models_StoreModel::getInstance();
+		$sql = "select 1 from ishali_pages_like where idpage = '". $idpage ."'";
+		$data = $store->SelectQuery($sql);
+		if(count($data)>0)
+			return 1;
+		else
+			return 0;
+	}
+	
+	public function addUserLikepage($iduserfb, $idpage)
+	{
+		$store = App_Models_StoreModel::getInstance();
+		$datenow = date("Y-m-d");
+		$sql = "insert into ishali_user_like(iduserfb, idpage, datelike) values('$iduserfb', '$idpage', '$datenow')";
+		$data = $store->InsertDeleteUpdateQuery($sql);
+		return $data;
+	}
+	
+	public function kiemTraSoLuongLikeUser($iduserfb)
+	{
+		$store = App_Models_StoreModel::getInstance();
+		$datenow = date("Y-m-d");
+		$sql = "select iduserlike from ishali_user_like where iduserfb = '". $iduserfb ."' and datelike = '". $datenow ."'";
+		$data = $store->SelectQuery($sql);
+		return count($data);
+	}
+	
+	public function getConfig()
+	{
+		$store = App_Models_StoreModel::getInstance();
+		$sql = "select * from ishali_config";
+		$data = $store->SelectQuery($sql);
+		return $data[0];
+	}
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

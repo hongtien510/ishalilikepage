@@ -50,8 +50,8 @@ class Ishali_Facebook extends Ishali_Api{
 	{
 		
 		$userid= Ishali_Facebook::getuserfbid();
-		if($isadmin == 1)
-		{
+		//if($isadmin == 1)
+		//{
 			if ($userid) {
 				return true;
 			}
@@ -63,9 +63,9 @@ class Ishali_Facebook extends Ishali_Api{
 					Ishali_Facebook::loginuserfbException($isadmin);
 				 }
 			}
-		}
-		else
-			return true;
+		//}
+		//else
+		//	return true;
 	   
 	}
     
@@ -126,7 +126,18 @@ class Ishali_Facebook extends Ishali_Api{
 	public  static function kiemTraLike()
 	{
 		$pageid = Ishali_Facebook::getpagearr();
-		return  $pageid['page']['liked'];
+		return $pageid['page']['liked'];
+	}
+	
+	public static function checkLikePage($idpage)
+	{
+		$fb = Ishali_Facebook::getFB();
+		$likes = $fb->api("/me/likes/$idpage");
+		//print_r($likes);
+		if(empty($likes['data']))
+			return 0;
+		else
+			return 1;
 	}
 	
 	public static function getLinkPage($idpage)
