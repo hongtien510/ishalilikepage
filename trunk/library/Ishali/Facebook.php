@@ -3,8 +3,6 @@ class Ishali_Facebook extends Ishali_Api{
 	
 	private static $fb;
 
-	function test() {   
-    }
 	
 	public static function getFB()
 	{
@@ -19,8 +17,6 @@ class Ishali_Facebook extends Ishali_Api{
 				'secret' => $config->facebook->appsecret,
 				'cookie' => true,
 				));
-				
-				
 		self::$fb = $fb;
 		
 		return self::$fb;
@@ -35,6 +31,13 @@ class Ishali_Facebook extends Ishali_Api{
 		$fb = Ishali_Facebook::getFB();
 		return  $fb->getUser();
 	}
+	
+	public static function test()
+	{
+		$fb = Ishali_Facebook::getFB();
+		$me = $fb->api('/me');
+		return $me;
+	}	
 	
 	public static function checkisadminpage()
 	{
@@ -126,6 +129,8 @@ class Ishali_Facebook extends Ishali_Api{
 	public  static function kiemTraLike()
 	{
 		$pageid = Ishali_Facebook::getpagearr();
+		//print_r($pageid);
+		//echo '1234567890';
 		return $pageid['page']['liked'];
 	}
 	

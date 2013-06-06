@@ -608,6 +608,24 @@ function customerLoadWindow(pageURL, title,w,h) {
 }
 
 
+function danglentuong(title, cap, des, link, pic) {
+	FB.ui(
+	  {
+		method: 'feed',
+		name: title,
+		link: link,
+		caption: cap,
+		picture: pic,
+		message: 'Message',
+		description: des
+	  }
+	);
+}
+
+function chonLinkPage(link)
+{
+	document.getElementById('linkpageshare').value = link;
+}
 
 
 

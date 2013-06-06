@@ -4,13 +4,7 @@ class Admin_ConfigController extends App_Controller_AdminController {
 
     public function init() {
         parent::init();
-        $this->_SESSION=new Zend_Session_Namespace();
-        
-        $facebook = new Ishali_Facebook();
-		$idpage = $facebook->getpageid();
-        
-        if(isset($idpage))
-            $_SESSION['idpage'] = $idpage;
+		$this->_SESSION=new Zend_Session_Namespace();
     }
 
     public function indexAction() {
@@ -19,7 +13,6 @@ class Admin_ConfigController extends App_Controller_AdminController {
 			$link_login = APP_DOMAIN."/admin/login";
 			header("Location:$link_login");
 		}
-		$_SESSION['list_page'] = "0";
 		
 		$store = $this->view->info = App_Models_StoreModel::getInstance();
 		
@@ -30,8 +23,6 @@ class Admin_ConfigController extends App_Controller_AdminController {
     }
 	
 	public function xulyconfigAction() {
-		//$this->_helper->viewRenderer->setNoRender(true);
-		//$this->_helper->layout->disableLayout();
 		$store = $this->view->info = App_Models_StoreModel::getInstance();
 		
 		$banner = "";

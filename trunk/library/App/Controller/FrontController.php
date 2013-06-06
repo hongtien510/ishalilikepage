@@ -14,22 +14,9 @@ class App_Controller_FrontController extends Zend_Controller_Action {
 
         $idUserFB = $facebook->getuserfbid();
 		$_SESSION['idUserFB'] = $idUserFB;
-
-		if($facebook->getpageid() != "")
-		{
-			@$idpage = $facebook->getpageid();
-			@$_SESSION['idpage'] = $idpage;
-		}
-		else
-		{
-			@$idpage = $_SESSION['idpage'];
-		}
-		
-		$data = $page->getInfoPage($idpage);
-		$this->view->pageInfo = $data;
 		
 		//Cau hinh Layout
-		$option = array('layout' => 'layout', 'layoutPath' => LAYOUT_PATH . '/' . $data[0]['templates'] );
+		$option = array('layout' => 'layout', 'layoutPath' => LAYOUT_PATH . '/tmplikepage');
         Zend_Layout::startMvc($option);
     }
 

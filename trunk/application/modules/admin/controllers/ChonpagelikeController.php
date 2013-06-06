@@ -14,16 +14,9 @@ class Admin_ChonpagelikeController extends App_Controller_AdminController {
 			$link_login = APP_DOMAIN."/admin/login";
 			header("Location:$link_login");
 		}
-		$_SESSION['list_page'] = "0";
+
 		$pageLike = App_Models_PagelikeModel::getInstance();
 
-		if($this->_request->getParam("idpage") != "")
-        {
-			$idpagee = $this->_request->getParam("idpage");
-			$_SESSION['idpage'] = $idpagee;
-		}
-		@$idpage = $_SESSION['idpage'];
-		
 		$listPage = $pageLike->getPage();
 		$this->view->listPage = $listPage;
 		

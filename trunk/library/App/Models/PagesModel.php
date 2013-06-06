@@ -47,7 +47,14 @@ class App_Models_PagesModel {
 	
 	public function getList($idUserFB)
 	{
-		$sql = "select id_pages, id_fb_page, page_name, date_create FROM ishali_pages where an_hien = 1 and id_fb = '". $idUserFB ."'";
+		$sql = "select id_pages, id_fb_page, page_name, date_create FROM ishali_pages where an_hien = 1 and id_fb = '". $idUserFB ."' order by id_pages desc";
+		$data = $this->SelectQuery($sql);
+		return $data;
+	}
+	
+		public function getList2()
+	{
+		$sql = "select id_pages, id_fb_page, page_name, date_create FROM ishali_pages where an_hien = 1 order by id_pages desc";
 		$data = $this->SelectQuery($sql);
 		return $data;
 	}

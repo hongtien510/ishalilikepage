@@ -3,9 +3,8 @@
 class Admin_SapxeppagelikeController extends App_Controller_AdminController {
 
     public function init() {
-        parent::init();
-        $this->_SESSION=new Zend_Session_Namespace();
-        
+        parent::init();  
+		$this->_SESSION=new Zend_Session_Namespace();
     }
 
     public function indexAction() {
@@ -14,15 +13,9 @@ class Admin_SapxeppagelikeController extends App_Controller_AdminController {
 			$link_login = APP_DOMAIN."/admin/login";
 			header("Location:$link_login");
 		}
-		$_SESSION['list_page'] = "0";
+
 		$pageLike = App_Models_PagelikeModel::getInstance();
 
-		if($this->_request->getParam("idpage") != "")
-        {
-			$idpagee = $this->_request->getParam("idpage");
-			$_SESSION['idpage'] = $idpagee;
-		}
-		
 		$listPage = $pageLike->getPageLike();
 		$this->view->listPage = $listPage;
     }

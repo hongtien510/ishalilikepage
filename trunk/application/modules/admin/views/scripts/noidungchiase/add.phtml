@@ -1,0 +1,28 @@
+<p class="title_page">Thêm nội dung chia sẻ mới</p>
+<form action="<?php echo APP_DOMAIN ?>/admin/noidungchiase/xulythem" method="post" enctype="multipart/form-data" onsubmit="cauhinhapp();">
+
+<table class="table_config" border="1">
+	<tr>
+		<td width="200">hình ảnh</td>
+		<td>
+			<input type="file" name="banner" id="" size="30" />
+		</td>
+	</tr>
+	<tr>
+		<td>Tiêu đề</td>
+		<td><input class="input_style" type="text" name="tieude" value="" /></td>
+	</tr>
+	<tr>
+		<td>Caption</td>
+		<td><input class="input_style" type="text" name="caption" value="" /></td>
+	</tr>
+	<tr>
+		<td>Mô tả</td>
+		<td><textarea class="textareastyle2" type="text" name="mota"></textarea></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><input type="submit" name="luunoidung" value="Lưu nội dung"/></td>
+	</tr>
+</table>
+</form>
