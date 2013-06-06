@@ -13,8 +13,7 @@ class Admin_IndexController extends App_Controller_AdminController {
 			$link_login = APP_DOMAIN."/admin/login";
 			header("Location:$link_login");
 		}
-		
-		$_SESSION['list_page'] = "0";
+
         $facebookadmin = new Ishali_FacebookAdmin();  
         $facebook = new Ishali_Facebook();  
 		$facebook->begins_works('1');
@@ -27,7 +26,7 @@ class Admin_IndexController extends App_Controller_AdminController {
 	 	$this->view->fbuserid = $facebook->getuserfbid();
 		$this->view->list_pages = $facebookadmin->list_pages($this->view->fbuserid, 'page');
 
-        $this->view->pageslist = App_Models_PagesModel::getInstance()->getList($this->view->fbuserid);
+        $this->view->pageslist = App_Models_PagesModel::getInstance()->getList2();
 
     	}else {
     		$facebookadmin->install();

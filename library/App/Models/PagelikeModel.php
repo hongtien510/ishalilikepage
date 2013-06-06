@@ -27,7 +27,7 @@ class App_Models_PagelikeModel {
 	public function getPage()
 	{
 		$store = App_Models_StoreModel::getInstance();
-		$sql = "select id_fb_page, page_name from ishali_pages where an_hien = 1";
+		$sql = "select id_fb_page, page_name from ishali_pages where an_hien = 1 order by id_pages desc";
 		$data = $store->SelectQuery($sql);
 		if(count($data)>0)
 			return $data;

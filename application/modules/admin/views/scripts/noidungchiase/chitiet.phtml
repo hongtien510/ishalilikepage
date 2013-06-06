@@ -1,0 +1,34 @@
+<?php
+	$chitietnoidung = $this->chitietnoidung;
+?>
+<p class="title_page">Chi tiet</p>
+<form action="<?php echo APP_DOMAIN ?>/admin/noidungchiase/update" method="post" enctype="multipart/form-data" onsubmit="cauhinhapp();">
+
+<table class="table_config" border="1">
+	<tr>
+		<td width="200">hình ảnh</td>
+		<td>
+			<input type="file" name="banner" id="" size="30" />
+			<?php if(@$chitietnoidung[0]['hinhanh']!=""){ ?>
+				<img src="<?php echo APP_DOMAIN ?>/application/layouts/tmplikepage/images/noidung/<?php echo $chitietnoidung[0]['hinhanh'] ?>" width="500" alt=""/>
+			<?php } ?>
+		</td>
+	</tr>
+	<tr>
+		<td>Tiêu đề</td>
+		<td><input class="input_style" type="text" name="tieude" value="<?php echo $chitietnoidung[0]['tieude'] ?>" /></td>
+	</tr>
+	<tr>
+		<td>Caption</td>
+		<td><input class="input_style" type="text" name="caption" value="<?php echo $chitietnoidung[0]['caption'] ?>" /></td>
+	</tr>
+	<tr>
+		<td>Mô tả</td>
+		<td><textarea class="textareastyle2" type="text" name="mota"><?php echo $chitietnoidung[0]['mota'] ?></textarea></td>
+	</tr>
+	<tr>
+		<td><input type="hidden" name="idnd" value="<?php echo @$chitietnoidung[0]['idnoidung']?>"/></td>
+		<td><input type="submit" name="luunoidung" value="Lưu nội dung"/></td>
+	</tr>
+</table>
+</form>

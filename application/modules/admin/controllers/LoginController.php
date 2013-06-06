@@ -9,7 +9,6 @@ class Admin_LoginController extends App_Controller_AdminController {
     }
 
     public function indexAction() {
-        $_SESSION['list_page'] = "0";
     }
     
     public function xulyloginAction() {
