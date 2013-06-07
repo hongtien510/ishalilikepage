@@ -34,7 +34,7 @@ class Admin_ChonpagelikeController extends App_Controller_AdminController {
 		//echo $data;
 		if($data == 1)
 		{
-			$link = APP_DOMAIN . '/admin/chonpagelike';
+			$link = ROOT_DOMAIN . '/admin/chonpagelike';
 			echo "<script>ThongBaoDongY('Lưu Thành Công.', '$link');</script>";	
 		}
 		else

@@ -120,6 +120,18 @@ class App_Models_PagelikeModel {
 		return $data[0];
 	}
 	
+	public function getLinkNoiDung($idnoidung)
+	{
+		$store = App_Models_StoreModel::getInstance();
+		$idnoidung = base64_decode(base64_decode($idnoidung));
+		$sql = "select linktintuc from ishali_noidung_chiase where idnoidung = '". $idnoidung ."'";
+		$data = $store->SelectQuery($sql);
+		if(count($data)==0)
+			return "";
+		else
+			return $data[0]['linktintuc'];
+	}
+	
 	
 }
 

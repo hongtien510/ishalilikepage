@@ -19,6 +19,7 @@
 			<th width="50px" >Likes</th>
 			<th width="100px"  >Xem App</th>
 			<th width="100px"  >Lời tham gia</th>
+			<th width="50px"  >Xóa</th>
 		</tr>
 	
 	<?php 
@@ -70,6 +71,10 @@
 	  		<td>
 				<div id="fb-root"></div>
 				<a href='#' onclick="FacebookInviteFriendsadmin('<?php echo $pages_fb['link']."?sk=app_".$appid ?>');">Mời tham gia</a>
+	       	</td>
+			
+			<td>
+				<a href="<?php echo ROOT_DOMAIN ?>/admin/index/removepage?idpage=<?php echo $page['id_fb_page']?>" onclick = "return confirm('Bạn có chắc chắn muốn xóa page này ra khỏi apps không. Để gở bỏ Apps sạch sẽ bạn phải Remove Apps trong Page của bạn nữa.')"><img height="30px" src="<?php echo APP_DOMAIN ?>/application/templates/giaodien_admin/images/edit-trash.png" alt="Xóa" title="Xóa Page ra khỏi Apps"/></a>
 	       	</td>
 
 	</tr>

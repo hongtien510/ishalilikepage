@@ -11,7 +11,14 @@ class IndexController extends App_Controller_FrontController {
 		$pageLike = App_Models_PagelikeModel::getInstance();
 		$config = Zend_Registry::get(APPLICATION_CONFIG);
 
+		if($fb->getParameterUrl() == "")
+			$idnoidung = "";
+		else
+			$idnoidung = $fb->getParameterUrl();
+
+		
 		$checkLike = $fb->kiemTraLike();
+		$checkLike = 1;
 		if($checkLike == "")
 		{
 			$link = APP_DOMAIN . '/index/yeucaulike';
@@ -24,26 +31,42 @@ class IndexController extends App_Controller_FrontController {
 			
 			$data = $pageLike->getConfig();
 			$solanlike = $data['solanlike'];
+			
 			if($soLuotLike < $solanlike)
 			{
 				$appId = $config->facebook->appid;
 				$data = $pageLike->getPageLike();
-				for($i=0; $i<count($data); $i++)
+				if($data != "")
 				{
-					$idpage = $data[$i]['idpage'];
-					$likePage = $fb->checkLikePage($idpage);
-					if($likePage == 0)
+					for($i=0; $i<count($data); $i++)
 					{
-						$linkAppPage = $data[$i]['linkpage'].'/app_'.$appId;
-						$this->view->linkAppPage = $linkAppPage;
-						return;
+						$idpage = $data[$i]['idpage'];
+						$likePage = $fb->checkLikePage($idpage);
+						if($likePage == 0)
+						{
+							$linkAppPage = $data[$i]['linkpage'].'/app_'.$appId.'?app_data='.$idnoidung;
+							$this->view->linkAppPage = $linkAppPage;
+							return;
+						}
 					}
+					//Truong hop Page nao cung da like
+					$this->view->linkAppPage = "";
+					$linkNoiDung = $pageLike->getLinkNoiDung($idnoidung);
+					$this->view->linkNoiDung = $linkNoiDung;
 				}
-				$this->view->linkAppPage = "";
+				else//Truong hop ko co page trong du lieu
+				{
+					$this->view->linkAppPage = "";
+					$linkNoiDung = $pageLike->getLinkNoiDung($idnoidung);
+					$this->view->linkNoiDung = $linkNoiDung;
+				}
+					
 			}
-			else
+			else//Truong hop user da like du so luong
 			{
 				$this->view->linkAppPage = "";
+				$linkNoiDung = $pageLike->getLinkNoiDung($idnoidung);
+				$this->view->linkNoiDung = $linkNoiDung;
 			}
 				
 		}
