@@ -46,13 +46,15 @@ class Admin_NoidungchiaseController extends App_Controller_AdminController {
 		$tieude = $_POST['tieude'];
 		$mota = $_POST['mota'];
 		$caption = $_POST['caption'];
+		$linktintuc = $_POST['linktintuc'];
 		
 		if($banner == "")
 		{
 			$sql = "update ishali_noidung_chiase set ";
 			$sql.= "tieude = '". $tieude ."', ";
 			$sql.= "mota = '". $mota ."', ";
-			$sql.= "caption = '". $caption ."' ";
+			$sql.= "caption = '". $caption ."', ";
+			$sql.= "linktintuc = '". $linktintuc ."' ";
 			$sql.= "where idnoidung = '". $idnoidung ."'";
 		}
 		else
@@ -73,6 +75,7 @@ class Admin_NoidungchiaseController extends App_Controller_AdminController {
 				$sql.= "tieude = '". $tieude ."', ";
 				$sql.= "mota = '". $mota ."', ";
 				$sql.= "caption = '". $caption ."', ";
+				$sql.= "linktintuc = '". $linktintuc ."', ";
 				$sql.= "hinhanh = '". $banner ."' ";
 				$sql.= "where idnoidung = '". $idnoidung ."'";
 		}
@@ -82,7 +85,7 @@ class Admin_NoidungchiaseController extends App_Controller_AdminController {
 		$data = $store->InsertDeleteUpdateQuery($sql);
 		if($data == 1)
 		{
-			$link = APP_DOMAIN . '/admin/noidungchiase';
+			$link = ROOT_DOMAIN . '/admin/noidungchiase';
 			echo "<script>ThongBaoDongY('Lưu Thành Công.', '$link');</script>";	
 		}
 		else
@@ -110,16 +113,17 @@ class Admin_NoidungchiaseController extends App_Controller_AdminController {
 		$tieude = $_POST['tieude'];
 		$mota = $_POST['mota'];
 		$caption = $_POST['caption'];
+		$linktintuc = $_POST['linktintuc'];
 		
 		if($banner == "")
 		{
-			$sql = "insert into ishali_noidung_chiase(tieude, mota, caption) ";
-			$sql.= "value('$tieude', '$mota', '$caption')";
+			$sql = "insert into ishali_noidung_chiase(tieude, mota, caption, linktintuc) ";
+			$sql.= "value('$tieude', '$mota', '$caption', '$linktintuc')";
 		}
 		else
 		{
-			$sql = "insert into ishali_noidung_chiase(tieude, mota, hinhanh, caption) ";
-			$sql.= "value('$tieude', '$mota', '$banner', '$caption')";
+			$sql = "insert into ishali_noidung_chiase(tieude, mota, hinhanh, caption, linktintuc) ";
+			$sql.= "value('$tieude', '$mota', '$banner', '$caption', '$linktintuc')";
 		}
 		
 		//echo $sql;
@@ -127,7 +131,7 @@ class Admin_NoidungchiaseController extends App_Controller_AdminController {
 		$data = $store->InsertDeleteUpdateQuery($sql);
 		if($data == 1)
 		{
-			$link = APP_DOMAIN . '/admin/noidungchiase';
+			$link = ROOT_DOMAIN . '/admin/noidungchiase';
 			echo "<script>ThongBaoDongY('Lưu Thành Công.', '$link');</script>";	
 		}
 		else
@@ -155,7 +159,7 @@ class Admin_NoidungchiaseController extends App_Controller_AdminController {
 		$data = $store->InsertDeleteUpdateQuery($sql);
 		if($data == 1)
 		{
-			$link = APP_DOMAIN . '/admin/noidungchiase';
+			$link = ROOT_DOMAIN . '/admin/noidungchiase';
 			echo "<script>ThongBaoDongY('Xóa thành công.', '$link');</script>";	
 		}
 		else

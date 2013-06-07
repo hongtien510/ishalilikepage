@@ -622,9 +622,14 @@ function danglentuong(title, cap, des, link, pic) {
 	);
 }
 
-function chonLinkPage(link)
+function chonLinkPage(link, idnoidung)
 {
-	document.getElementById('linkpageshare').value = link;
+	if(link != '0')
+	{
+		document.getElementById('linkpageshare').value = link;
+		$('.danglentuong').hide();
+		$('#idnoidung'+idnoidung).show();
+	}
 }
 
 

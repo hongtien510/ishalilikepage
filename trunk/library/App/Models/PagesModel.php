@@ -60,6 +60,17 @@ class App_Models_PagesModel {
 	}
 	
 	
+	public function xoaTatCaThongTinPage($idpage)
+	{
+		$sql = "delete from ishali_pages where id_fb_page = '". $idpage ."'";
+		$sql1 = "delete from ishali_pages_like where idpage = '". $idpage ."'";
+		$data = $this->InsertDeleteUpdateQuery($sql);
+		$data1 = $this->InsertDeleteUpdateQuery($sql1);
+		
+		return $data;
+		
+	}
+	
 	
 }
 

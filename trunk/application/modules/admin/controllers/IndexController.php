@@ -85,5 +85,23 @@ class Admin_IndexController extends App_Controller_AdminController {
 
 		}
     }
+	
+	public function removepageAction(){
+		$page = App_Models_PagesModel::getInstance();
+		$idpage = $_GET['idpage'];
+		
+		$data = $page->xoaTatCaThongTinPage($idpage);
+		if($data == 1)
+		{
+			$link = ROOT_DOMAIN . '/admin';
+			echo "<script>ThongBaoDongY('Xóa Thành Công.', '$link');</script>";	
+		}
+		else
+		{
+			echo "<script>ThongBaoDongY('Xóa không thành công<br/>Vui Lòng thực hiện lại thao tác.', '$link');</script>";
+		}
+
+		
+	}
 }
 

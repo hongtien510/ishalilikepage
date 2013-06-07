@@ -19,10 +19,9 @@
 	<tr>
 		<th width="20">STT</th>
         <th width="150">Tiêu đề</th>
-		<th width="150">Caption</th>
 		<th width="150">Mô tả</th>
         <th width="50">Hình ảnh</th>
-		<th width="30">Công Cụ</th>
+		<th width="50">Công Cụ</th>
 	</tr>
 	<?php
 		for($i=0; $i<count($noidungchiase); $i++)
@@ -31,21 +30,22 @@
 	<tr>
 		<td align="center"><?php echo $i+1 ?></td>
         <td><?php echo $noidungchiase[$i]['tieude'] ?></td>
-        <td><?php echo $noidungchiase[$i]['caption'] ?></td>
 		<td><?php echo $noidungchiase[$i]['mota'] ?></td>
         <td align="center">
 			<img src="<?php echo APP_DOMAIN?>/application/layouts/tmplikepage/images/noidung/<?php echo $noidungchiase[$i]['hinhanh'] ?>" class="hinhchinh_product">
 		</td>
         
-        <td align="center">
+        <td align="center"  valign="top" style="padding-top:30px">
 			<a href="noidungchiase/chitiet?idnd=<?php echo $noidungchiase[$i]['idnoidung']?>"><img title="Chi Tiết Nội dung" alt="ct" src="<?php echo APP_DOMAIN ?>/application/templates/giaodien_admin/images/sua.png"></a>
 			<a onclick="return confirm('Bạn có chắc chắn muốn xóa không.')"  href="<?php echo APP_DOMAIN ?>/admin/noidungchiase/delete?idnd=<?php echo $noidungchiase[$i]['idnoidung'] ?>"><img title="Xóa Sản Phẩm" alt="xoa" src="<?php echo APP_DOMAIN ?>/application/templates/giaodien_admin/images/xoa.png"></a>
-			<select title="Chọn Page cần đăng lên tường." onchange="chonLinkPage(this.value)" name="listPageLike" style="width:20px; padding: 0 5px 0 0; width: 25px;">
+			<select title="Chọn Page cần đăng lên tường." onchange="chonLinkPage(this.value, '<?php echo $noidungchiase[$i]['idnoidung'] ?>')" name="listPageLike" style="width:20px; padding: 0 5px 0 0; width: 25px;">
+				<option value='0'>Chọn Page cần chia sẻ</option>
 				<?php
 					for($j=0; $j<count($listPageLike); $j++)
 					{
 						$namePage = $listPageLike[$j]['pagename'];
-						$linkPage = $listPageLike[$j]['linkpage'].'/app_'.APP_ID;
+						$idnd = base64_encode(base64_encode($noidungchiase[$i]['idnoidung']));
+						$linkPage = $listPageLike[$j]['linkpage'].'/app_'.APP_ID.'?app_data='.$idnd;
 						echo "<option value='$linkPage'>$namePage</option>";
 					}
 				?>
@@ -58,7 +58,8 @@
 				
 				$hinhanh = APP_DOMAIN . '/application/layouts/tmplikepage/images/noidung/' . $noidungchiase[$i]['hinhanh'];;
 			?>
-			<a onclick="danglentuong(<?php echo "'$tieude', '$caption', '$mota', document.getElementById('linkpageshare').value, '$hinhanh'"; ?>)" href="javascript:;"><img width="16" title="Chia sẻ lên tường" alt="tt" src="<?php echo APP_DOMAIN ?>/application/templates/giaodien_admin/images/icon_facebook.png"></a>
+			<br/>
+			<a class="danglentuong" id="idnoidung<?php echo $noidungchiase[$i]['idnoidung']?>" onclick="danglentuong(<?php echo "'$tieude', '$caption', '$mota', document.getElementById('linkpageshare').value, '$hinhanh'"; ?>)" href="javascript:;"><img title="Chia sẻ lên tường" alt="tt" src="<?php echo APP_DOMAIN ?>/application/templates/giaodien_admin/images/sharefb.jpg"></a>
 		</td>
 	</tr>
 	<?php } ?>

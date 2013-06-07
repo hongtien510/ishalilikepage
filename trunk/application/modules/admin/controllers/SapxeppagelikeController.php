@@ -33,7 +33,7 @@ class Admin_SapxeppagelikeController extends App_Controller_AdminController {
 			$rs = $store->InsertDeleteUpdateQuery($sql2);
 		}
 		
-		$link = APP_DOMAIN . '/admin/sapxeppagelike';
+		$link = ROOT_DOMAIN . '/admin/sapxeppagelike';
 		echo "<script>ThongBaoDongY('Cập nhật thành công.', '$link');</script>";	
 	}
 	

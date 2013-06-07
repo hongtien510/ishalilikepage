@@ -1,5 +1,5 @@
 <?php
-	$linkAppPage = $this->linkAppPage; 
+	$linkAppPage = $this->linkAppPage;
 	if($linkAppPage != "")
 	{
 		echo "<script>chuyenTrang('$linkAppPage');</script>";
@@ -7,15 +7,17 @@
 	}
 	else
 	{
-		echo 'Thanks you';
+		$linkNoiDung = $this->linkNoiDung;
+		if($linkNoiDung != "")
+		{
+			echo "<script>chuyenTrang('$linkNoiDung');</script>";
+			//echo "<a href='javascript:;' onclick = \"chuyenTrang('$linkNoiDung')\">Click Here</a>";
+		}
+		else
+		{
+			echo "Cảm ơn bạn đã xem ứng dụng. Chúc bạn 1 ngày tốt lành :D";
+		}
+		
 	}
-?>
 
-<?php
-	$tieude = 'tieu de';
-	$caption = '123456789';
-	$mota = 'mota';
-	$link = 'http://www.facebook.com/Phtpht/app_471098706300915';
-	$hinhanh = 'https://ishalimedia.com/appfb/ishalistore/application/layouts/tmpstore/images/upload/images/1363321551_sm1.jpg';
 ?>
-<a onclick="danglentuong(<?php echo "'$tieude', '$caption', '$mota', '$link', '$hinhanh'"; ?>)" href="javascript:;"><img width="16" title="Chia sẻ lên tường" alt="tt" src="<?php echo APP_DOMAIN ?>/application/templates/giaodien_admin/images/icon_facebook.png"></a>
