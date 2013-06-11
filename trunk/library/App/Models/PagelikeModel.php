@@ -83,6 +83,29 @@ class App_Models_PagelikeModel {
 			return "";
 	}
 	
+	public function getMacAddress()
+	{
+		ob_start(); // Turn on output buffering
+		system('ipconfig /all'); //Execute external program to display output
+		$mycom=ob_get_contents(); // Capture the output into a variable
+		ob_clean(); // Clean (erase) the output buffer
+
+		$findme = "Physical";
+		$pmac = strpos($mycom, $findme); // Find the position of Physical text
+		$mac=substr($mycom,($pmac+36),17); // Get Physical Address
+
+		return $mac;
+	}
+	
+	//Tra ve dia chi Mac
+	public function saveUserLikeByMacId($macId, $idPage)
+	{
+		$store = App_Models_StoreModel::getInstance();
+		$sql = "insert into ishali_user_like(iduserfb, datelike, idpage) values('$macId', now(), '$idPage')";
+		$data = $store->InsertDeleteUpdateQuery($sql);
+		return $data;
+	}
+	
 	public function checkPagelike($idpage)
 	{
 		$store = App_Models_StoreModel::getInstance();
