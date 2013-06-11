@@ -35,12 +35,29 @@ class Admin_NoidungchiaseController extends App_Controller_AdminController {
 	public function updateAction(){
 		$store = $this->view->info = App_Models_StoreModel::getInstance();
 		$idnoidung = $_POST['idnd'];
-		$banner = "";
+		$status = 0;
+		
 		@$file=$_FILES['banner'];
 		if($file['name']!="")//Neu nhu NSD co upload file
 		{
-			$banner=time().'_'.$file['name'];
-			move_uploaded_file($file['tmp_name'],'application/layouts/tmplikepage/images/noidung/'.$banner);
+			$tenhinh = "";
+			$tenhinh=time().'_'.$file['name'];
+			move_uploaded_file($file['tmp_name'],'application/layouts/tmplikepage/images/noidung/'.$tenhinh);
+			$linkhinh = APP_DOMAIN . '/application/layouts/tmplikepage/images/noidung/' . $tenhinh;
+			$status = 1;//Co Uphinh
+		}
+		else
+		{
+			if($_POST['linkhinh'] == "")
+			{
+				$linkhinh = "";
+				$status = 2;//Ko Uphinh va Ko thay doi Link hinh
+			}
+			else
+			{
+				$linkhinh = $_POST['linkhinh'];
+				$status = 3;//Ko Uphinh va Co thay doi Link hinh
+			}
 		}
 
 		$tieude = $_POST['tieude'];
@@ -48,7 +65,7 @@ class Admin_NoidungchiaseController extends App_Controller_AdminController {
 		$caption = $_POST['caption'];
 		$linktintuc = $_POST['linktintuc'];
 		
-		if($banner == "")
+		if($status == 2)
 		{
 			$sql = "update ishali_noidung_chiase set ";
 			$sql.= "tieude = '". $tieude ."', ";
@@ -56,31 +73,53 @@ class Admin_NoidungchiaseController extends App_Controller_AdminController {
 			$sql.= "caption = '". $caption ."', ";
 			$sql.= "linktintuc = '". $linktintuc ."' ";
 			$sql.= "where idnoidung = '". $idnoidung ."'";
+			
 		}
-		else
+		if($status == 1)
 		{
-			$sql = "Select hinhanh from ishali_noidung_chiase where idnoidung = '". $idnoidung ."'";
-				$bn = $store->SelectQuery($sql);
-				
-				if($bn[0]['hinhanh'] != "")
+			$sql = "Select tenhinh from ishali_noidung_chiase where idnoidung = '". $idnoidung ."'";
+			$bn = $store->SelectQuery($sql);
+			if($bn[0]['tenhinh'] != "")
+			{
+				$tenhinh_old = $bn[0]['tenhinh'];
+				if(file_exists('application/layouts/tmplikepage/images/noidung/'.$tenhinh_old))
 				{
-					$banner_old = $bn[0]['hinhanh'];
-					if(file_exists('application/layouts/tmplikepage/images/noidung/'.$banner_old))
-					{
-						unlink('application/layouts/tmplikepage/images/noidung/'.$banner_old);
-					}
+					unlink('application/layouts/tmplikepage/images/noidung/'.$tenhinh_old);
 				}
-
-				$sql = "update ishali_noidung_chiase set ";
-				$sql.= "tieude = '". $tieude ."', ";
-				$sql.= "mota = '". $mota ."', ";
-				$sql.= "caption = '". $caption ."', ";
-				$sql.= "linktintuc = '". $linktintuc ."', ";
-				$sql.= "hinhanh = '". $banner ."' ";
-				$sql.= "where idnoidung = '". $idnoidung ."'";
+			}
+			
+			$sql = "update ishali_noidung_chiase set ";
+			$sql.= "tieude = '". $tieude ."', ";
+			$sql.= "mota = '". $mota ."', ";
+			$sql.= "caption = '". $caption ."', ";
+			$sql.= "linktintuc = '". $linktintuc ."', ";
+			$sql.= "hinhanh = '". $linkhinh ."', ";
+			$sql.= "tenhinh = '". $tenhinh ."' ";
+			$sql.= "where idnoidung = '". $idnoidung ."'";
 		}
+		if($status == 3)
+		{
+			$sql = "Select tenhinh from ishali_noidung_chiase where idnoidung = '". $idnoidung ."'";
+			$bn = $store->SelectQuery($sql);
+			if($bn[0]['tenhinh'] != "")
+			{
+				$tenhinh_old = $bn[0]['tenhinh'];
+				if(file_exists('application/layouts/tmplikepage/images/noidung/'.$tenhinh_old))
+				{
+					unlink('application/layouts/tmplikepage/images/noidung/'.$tenhinh_old);
+				}
+			}
+			
+			$sql = "update ishali_noidung_chiase set ";
+			$sql.= "tieude = '". $tieude ."', ";
+			$sql.= "mota = '". $mota ."', ";
+			$sql.= "caption = '". $caption ."', ";
+			$sql.= "linktintuc = '". $linktintuc ."', ";
+			$sql.= "hinhanh = '". $linkhinh ."', ";
+			$sql.= "tenhinh = '' ";
+			$sql.= "where idnoidung = '". $idnoidung ."'";
 		
-		//echo $sql;
+		}
 
 		$data = $store->InsertDeleteUpdateQuery($sql);
 		if($data == 1)
@@ -101,30 +140,35 @@ class Admin_NoidungchiaseController extends App_Controller_AdminController {
 	
 	public function xulythemAction() {
 		$store = $this->view->info = App_Models_StoreModel::getInstance();
-		
-		$banner = "";
+
+		$tenhinh = "";
 		@$file=$_FILES['banner'];
 		if($file['name']!="")//Neu nhu NSD co upload file
 		{
-			$banner=time().'_'.$file['name'];
-			move_uploaded_file($file['tmp_name'],'application/layouts/tmplikepage/images/noidung/'.$banner);
+			$tenhinh=time().'_'.$file['name'];
+			move_uploaded_file($file['tmp_name'],'application/layouts/tmplikepage/images/noidung/'.$tenhinh);
+			$linkhinh = APP_DOMAIN . '/application/layouts/tmplikepage/images/noidung/' . $tenhinh;
 		}
-
+		else
+		{
+			if($_POST['linkhinh'] == "")
+			{
+				$linkhinh = "";
+			}
+			else
+			{
+				$linkhinh = $_POST['linkhinh'];
+			}
+		}
+		
 		$tieude = $_POST['tieude'];
 		$mota = $_POST['mota'];
 		$caption = $_POST['caption'];
 		$linktintuc = $_POST['linktintuc'];
 		
-		if($banner == "")
-		{
-			$sql = "insert into ishali_noidung_chiase(tieude, mota, caption, linktintuc) ";
-			$sql.= "value('$tieude', '$mota', '$caption', '$linktintuc')";
-		}
-		else
-		{
-			$sql = "insert into ishali_noidung_chiase(tieude, mota, hinhanh, caption, linktintuc) ";
-			$sql.= "value('$tieude', '$mota', '$banner', '$caption', '$linktintuc')";
-		}
+
+		$sql = "insert into ishali_noidung_chiase(tieude, mota, hinhanh, tenhinh, caption, linktintuc) ";
+		$sql.= "value('$tieude', '$mota', '$linkhinh', '$tenhinh', '$caption', '$linktintuc')";
 		
 		//echo $sql;
 		
@@ -140,19 +184,23 @@ class Admin_NoidungchiaseController extends App_Controller_AdminController {
 		}
 	}
 	
+	
+	
+	
+	
 	public function deleteAction() {
 		$store = $this->view->info = App_Models_StoreModel::getInstance();
 		$idnoidung = $_GET['idnd'];
 		
-		$sql = "Select hinhanh from ishali_noidung_chiase where idnoidung = '". $idnoidung ."'";
+		$sql = "Select tenhinh from ishali_noidung_chiase where idnoidung = '". $idnoidung ."'";
 			$bn = $store->SelectQuery($sql);
 			
-			if($bn[0]['hinhanh'] != "")
+			if($bn[0]['tenhinh'] != "")
 			{
-				$banner_old = $bn[0]['hinhanh'];
-				if(file_exists('application/layouts/tmplikepage/images/noidung/'.$banner_old))
+				$tenhinh = $bn[0]['tenhinh'];
+				if(file_exists('application/layouts/tmplikepage/images/noidung/'.$tenhinh))
 				{
-					unlink('application/layouts/tmplikepage/images/noidung/'.$banner_old);
+					unlink('application/layouts/tmplikepage/images/noidung/'.$tenhinh);
 				}
 			}
 		$sql = "delete from ishali_noidung_chiase where idnoidung = '". $idnoidung ."'";

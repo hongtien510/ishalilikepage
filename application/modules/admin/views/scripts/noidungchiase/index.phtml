@@ -32,7 +32,10 @@
         <td><?php echo $noidungchiase[$i]['tieude'] ?></td>
 		<td><?php echo $noidungchiase[$i]['mota'] ?></td>
         <td align="center">
+			<!--
 			<img src="<?php echo APP_DOMAIN?>/application/layouts/tmplikepage/images/noidung/<?php echo $noidungchiase[$i]['hinhanh'] ?>" class="hinhchinh_product">
+			-->
+			<img src="<?php echo $noidungchiase[$i]['hinhanh']?>" class="hinhchinh_product">
 		</td>
         
         <td align="center"  valign="top" style="padding-top:30px">
@@ -56,7 +59,7 @@
 				$caption = $noidungchiase[$i]['caption'];
 				$mota = $noidungchiase[$i]['mota'];
 				
-				$hinhanh = APP_DOMAIN . '/application/layouts/tmplikepage/images/noidung/' . $noidungchiase[$i]['hinhanh'];;
+				$hinhanh = $noidungchiase[$i]['hinhanh'];
 			?>
 			<br/>
 			<a class="danglentuong" id="idnoidung<?php echo $noidungchiase[$i]['idnoidung']?>" onclick="danglentuong(<?php echo "'$tieude', '$caption', '$mota', document.getElementById('linkpageshare').value, '$hinhanh'"; ?>)" href="javascript:;"><img title="Chia sẻ lên tường" alt="tt" src="<?php echo APP_DOMAIN ?>/application/templates/giaodien_admin/images/sharefb.jpg"></a>
