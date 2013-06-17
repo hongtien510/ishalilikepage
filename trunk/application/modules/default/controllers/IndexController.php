@@ -11,12 +11,6 @@ class IndexController extends App_Controller_FrontController {
 		$pageLike = App_Models_PagelikeModel::getInstance();
 		$config = Zend_Registry::get(APPLICATION_CONFIG);
 
-		if($fb->getParameterUrl() == "")
-			$idnoidung = "";
-		else
-			$idnoidung = $fb->getParameterUrl();
-
-		
 		$checkLike = $fb->kiemTraLike();
 		//$checkLike = 1;
 		if($checkLike == "")
@@ -26,49 +20,75 @@ class IndexController extends App_Controller_FrontController {
 		}
 		else
 		{
-			$idUserFB = $_SESSION['idUserFB'];
-			$soLuotLike = $pageLike->kiemTraSoLuongLikeUser($idUserFB);
+			$idpage = @$_SESSION['idpage'];
+			$pageLike->luuMacAdressLikePage($idpage);//Sau khi like page, sẽ luu dia chi Mac va idPage
+		
+			$soLuotLikeTrongNgay = $pageLike->soLuotLikeTrongNgay();
 			
-			$data = $pageLike->getConfig();
+			$data = $pageLike->getConfig();//Lay Gia Tri Bang Config
 			$solanlike = $data['solanlike'];
 			
-			if($soLuotLike < $solanlike)
+			if($soLuotLikeTrongNgay < $solanlike)
 			{
 				$appId = $config->facebook->appid;
-				$data = $pageLike->getPageLike();
+				$data = $pageLike->getPageLike();//List Page Like
 				if($data != "")
 				{
 					for($i=0; $i<count($data); $i++)
 					{
 						$idpage = $data[$i]['idpage'];
-						$likePage = $fb->checkLikePage($idpage);
-						if($likePage == 0)
+						$checkLikePage = $pageLike->checkLikePage($idpage);
+						if($checkLikePage == 1)//Page nay chua duoc like
 						{
-							$linkAppPage = $data[$i]['linkpage'].'/app_'.$appId.'?app_data='.$idnoidung;
+							if($fb->getParameterUrl() == "")
+							{
+								$linkAppPage = $data[$i]['linkpage'].'/app_'.$appId;
+							}
+							else
+							{
+								$idnoidung = $fb->getParameterUrl();
+								$linkAppPage = $data[$i]['linkpage'].'/app_'.$appId.'?app_data='.$idnoidung;
+							}
 							$this->view->linkAppPage = $linkAppPage;
 							return;
 						}
+					}//Truong hop Page nao cung da like
+					if($fb->getParameterUrl() == ""){
+						$this->view->linkAppPage = "";
+						$this->view->linkNoiDung = "";
+					}else{
+						$this->view->linkAppPage = "";
+						$idnoidung = $fb->getParameterUrl();
+						$linkNoiDung = $pageLike->getLinkNoiDung($idnoidung);
+						$this->view->linkNoiDung = $linkNoiDung;
 					}
-					//Truong hop Page nao cung da like
-					$this->view->linkAppPage = "";
-					$linkNoiDung = $pageLike->getLinkNoiDung($idnoidung);
-					$this->view->linkNoiDung = $linkNoiDung;
 				}
 				else//Truong hop ko co page trong du lieu
 				{
-					$this->view->linkAppPage = "";
-					$linkNoiDung = $pageLike->getLinkNoiDung($idnoidung);
-					$this->view->linkNoiDung = $linkNoiDung;
+					if($fb->getParameterUrl() == ""){
+						$this->view->linkAppPage = "";
+						$this->view->linkNoiDung = "";
+					}else{
+						$this->view->linkAppPage = "";
+						$idnoidung = $fb->getParameterUrl();
+						$linkNoiDung = $pageLike->getLinkNoiDung($idnoidung);
+						$this->view->linkNoiDung = $linkNoiDung;
+					}
 				}
 					
 			}
 			else//Truong hop user da like du so luong
 			{
-				$this->view->linkAppPage = "";
-				$linkNoiDung = $pageLike->getLinkNoiDung($idnoidung);
-				$this->view->linkNoiDung = $linkNoiDung;
+				if($fb->getParameterUrl() == ""){
+						$this->view->linkAppPage = "";
+						$this->view->linkNoiDung = "";
+				}else{
+					$this->view->linkAppPage = "";
+					$idnoidung = $fb->getParameterUrl();
+					$linkNoiDung = $pageLike->getLinkNoiDung($idnoidung);
+					$this->view->linkNoiDung = $linkNoiDung;
+				}
 			}
-				
 		}
     }
 	
@@ -79,18 +99,7 @@ class IndexController extends App_Controller_FrontController {
 		$this->view->config = $data;
 	}
 	
-	public function luotlikeuserAction()
-	{
-		$this->_helper->viewRenderer->setNoRender(true);
-		$this->_helper->layout->disableLayout();
-		
-		$pageLike = App_Models_PagelikeModel::getInstance();
-		
-		$idUserFB = $_SESSION['idUserFB'];
-		$idpage = $_SESSION['idpage'];
-		$pageLike->addUserLikepage($idUserFB, $idpage);
-	}
-    
+
     
 
    
