@@ -10,15 +10,15 @@ class IndexController extends App_Controller_FrontController {
 		$fb = new Ishali_Facebook();
 		$pageLike = App_Models_PagelikeModel::getInstance();
 		$config = Zend_Registry::get(APPLICATION_CONFIG);
-/* 
+
 		if($fb->getParameterUrl() == "")
 			$idnoidung = "";
 		else
 			$idnoidung = $fb->getParameterUrl();
- */
+
 		
 		$checkLike = $fb->kiemTraLike();
-		$checkLike = 1;
+		//$checkLike = 1;
 		if($checkLike == "")
 		{
 			$link = APP_DOMAIN . '/index/yeucaulike';
@@ -26,12 +26,7 @@ class IndexController extends App_Controller_FrontController {
 		}
 		else
 		{
-			echo $macId = $pageLike->getMacAddress();
-			$idpage = $_SESSION['idpage'];
-
-			$pageLike->saveUserLikeByMacId($macId, $idpage);
-		
-			/* $idUserFB = $_SESSION['idUserFB'];
+			$idUserFB = $_SESSION['idUserFB'];
 			$soLuotLike = $pageLike->kiemTraSoLuongLikeUser($idUserFB);
 			
 			$data = $pageLike->getConfig();
@@ -72,7 +67,7 @@ class IndexController extends App_Controller_FrontController {
 				$this->view->linkAppPage = "";
 				$linkNoiDung = $pageLike->getLinkNoiDung($idnoidung);
 				$this->view->linkNoiDung = $linkNoiDung;
-			} */
+			}
 				
 		}
     }
