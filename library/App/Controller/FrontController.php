@@ -20,6 +20,7 @@ class App_Controller_FrontController extends Zend_Controller_Action {
 		{
 			@$idpage = $_SESSION['idpage'];
 		}
+		/*
 		$infoPage = $pageLike->thongTinTrang($idpage);
 		
 		$linkPage = $infoPage[0]['link_page'];
@@ -35,13 +36,15 @@ class App_Controller_FrontController extends Zend_Controller_Action {
 			$appData = $facebook->getParameterUrl();
 			$linkPageApp = $linkPage . '/app_' . $appId . '?app_data=' . $appData;
 		}
+		*/
 		
-		$idUserFB = $facebook->getuserfbid();
+		
+/* 		$idUserFB = $facebook->getuserfbid();
 		if($idUserFB == 0)
 		{
 			$facebook->userlogin($linkPageApp);
 		}
-		$_SESSION['idUserFB'] = $idUserFB;
+		$_SESSION['idUserFB'] = $idUserFB; */
 		
 		//Cau hinh Layout
 		$option = array('layout' => 'layout', 'layoutPath' => LAYOUT_PATH . '/tmplikepage');

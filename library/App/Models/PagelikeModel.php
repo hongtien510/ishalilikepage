@@ -104,6 +104,8 @@ class App_Models_PagelikeModel {
 		return $data;
 	}
 	
+	
+	
 	public function kiemTraSoLuongLikeUser($iduserfb)
 	{
 		$store = App_Models_StoreModel::getInstance();
@@ -131,6 +133,65 @@ class App_Models_PagelikeModel {
 			return "";
 		else
 			return $data[0]['linktintuc'];
+	}
+	
+	public function soLuotLikeTrongNgay()
+	{
+		$store = App_Models_StoreModel::getInstance();
+		$macAdress = $this->getMacAddress();
+		$datenow = date("Y-m-d");
+		
+		$sql = "select iduserlike from ishali_user_like where iduserfb = '". $macAdress ."' and datelike = '". $datenow ."'";
+		$data = $store->SelectQuery($sql);
+		return count($data);
+		
+	}
+	
+	public function checkLikePage($idpage)
+	{
+		$store = App_Models_StoreModel::getInstance();
+		$macAdress = $this->getMacAddress();
+		$datenow = date("Y-m-d");
+		$sql = "select iduserlike from ishali_user_like where iduserfb = '". $macAdress ."' and idpage = '". $idpage ."'";
+		$data = $store->SelectQuery($sql);
+		if(count($data)==0)
+			return 1;
+		return 0;
+	}
+	
+	//Luu dia chi mac va Idpage vao page ishali_user_like
+	public function luuMacAdressLikePage($idpage)
+	{
+		$store = App_Models_StoreModel::getInstance();
+		$macAdress = $this->getMacAddress();
+		$datenow = date("Y-m-d");
+		
+		$sql = "insert into ishali_user_like(iduserfb, idpage, datelike) values('$macAdress', '$idpage', '$datenow')";
+		$data = $store->InsertDeleteUpdateQuery($sql);
+		return $data;
+	}
+	
+	
+	public function getMacAddress()
+	{
+		ob_start(); // Turn on output buffering
+		system('ipconfig /all'); //Execute external program to display output
+		$mycom=ob_get_contents(); // Capture the output into a variable
+		ob_clean(); // Clean (erase) the output buffer
+
+		$findme = "Physical";
+		$pmac = strpos($mycom, $findme); // Find the position of Physical text
+		$mac=substr($mycom,($pmac+36),17); // Get Physical Address
+		return $mac;
+	}
+	
+	//Tra ve dia chi Mac
+	public function saveUserLikeByMacId($macId, $idPage)
+	{
+		$store = App_Models_StoreModel::getInstance();
+		$sql = "insert into ishali_user_like(iduserfb, datelike, idpage) values('$macId', now(), '$idPage')";
+		$data = $store->InsertDeleteUpdateQuery($sql);
+		return $data;
 	}
 	
 	
