@@ -51,7 +51,6 @@ class Ishali_Facebook extends Ishali_Api{
 	
 	public static function begins_works($isadmin=NULL)
 	{
-		
 		$userid= Ishali_Facebook::getuserfbid();
 		//if($isadmin == 1)
 		//{
@@ -60,11 +59,11 @@ class Ishali_Facebook extends Ishali_Api{
 			}
 			else
 			{
-				 try {
+				try{
 					Ishali_Facebook::loginuserfb($isadmin);
-				 } catch (FacebookApiException $e) {
+				} catch (FacebookApiException $e) {
 					Ishali_Facebook::loginuserfbException($isadmin);
-				 }
+				}
 			}
 		//}
 		//else
@@ -72,6 +71,37 @@ class Ishali_Facebook extends Ishali_Api{
 	   
 	}
     
+	public function loginuserfb($isadmin)
+	{   
+		if(isset($isadmin) && $isadmin==1)
+		{
+			$config = Zend_Registry::get(APPLICATION_CONFIG);
+			$pagelink =$config->facebook->appurl."admin";
+			Ishali_Facebook::userlogin($pagelink);
+		}else if(isset($isadmin) && $isadmin!=0)
+		{
+			$pagelink = Ishali_Facebook::getpage_app_redirect();
+			Ishali_Facebook::userlogin($pagelink."?request_ids=".$isadmin);
+		}else
+		{
+			echo $pagelink = Ishali_Facebook::getpage_app_redirect();
+			Ishali_Facebook::userlogin($pagelink);
+		}
+	}
+	
+	
+	public static function userlogin($app_url)
+	{
+		$config = Zend_Registry::get(APPLICATION_CONFIG);
+		$fb = Ishali_Facebook::getFB();
+		$Ishali_Api = new Ishali_Api();
+		$paramsp['scope'] = $config->facebook->login->scope;
+		$paramsp['response_type'] = $config->facebook->login->response_type;
+		$paramsp['redirect_uri'] = $app_url;
+		$loginUrl = $fb->getLoginUrl($paramsp);
+		$Ishali_Api->parentRedirect($loginUrl);
+	}
+	
 	public  static function getpagearr()
 	{
 		if(empty($_REQUEST["signed_request"])) {		
@@ -138,7 +168,6 @@ class Ishali_Facebook extends Ishali_Api{
 	{
 		$fb = Ishali_Facebook::getFB();
 		$likes = $fb->api("/me/likes/$idpage");
-		//print_r($likes);
 		if(empty($likes['data']))
 			return 0;
 		else
@@ -159,24 +188,7 @@ class Ishali_Facebook extends Ishali_Api{
 		return  @$param["app_data"];
 	}
 
-    public function loginuserfb($isadmin)
-	{   
-		if(isset($isadmin) && $isadmin==1)
-		{
-			$config = Zend_Registry::get(APPLICATION_CONFIG);
-			$pagelink =$config->facebook->appurl."admin";
-			Ishali_Facebook::userlogin($pagelink);
-		}else if(isset($isadmin) && $isadmin!=0)
-		{
-			$pagelink = Ishali_Facebook::getpage_app_redirect();
-			Ishali_Facebook::userlogin($pagelink."?request_ids=".$isadmin);
-		}else
-		{
-			$pagelink = Ishali_Facebook::getpage_app_redirect();
-			Ishali_Facebook::userlogin($pagelink);
-		}
-	}
-	    
+        
     public function loginuserfbException($isadmin)
 	{   
 		if(isset($isadmin) && $isadmin==1)
@@ -203,20 +215,7 @@ class Ishali_Facebook extends Ishali_Api{
 		$convertUrl = "http://www.facebook.com/login/roadblock.php?target_url=$app_url" ;
 		$Ishali_Api->parentRedirect($convertUrl);
 	}
-	    
-	    
- 	public static function userlogin($app_url)
-	{
-		$config = Zend_Registry::get(APPLICATION_CONFIG);
-		$fb = Ishali_Facebook::getFB();
-		$Ishali_Api = new Ishali_Api();
-		$paramsp['scope'] = $config->facebook->login->scope;
-		$paramsp['response_type'] = $config->facebook->login->response_type;
-		$paramsp['redirect_uri'] = $app_url;
-		$loginUrl = $fb->getLoginUrl($paramsp);
-		$Ishali_Api->parentRedirect($loginUrl);
-	}
-	    
+	      
 	    
 	
 	public static function isFacebookRequest()
@@ -237,9 +236,7 @@ class Ishali_Facebook extends Ishali_Api{
     	$fb = Ishali_Facebook::getFB();
     	$pageid = $fb->getFanPageId();
 		$page_profile = $fb->api('/'.$pageid);
-	
-		return $page_profile;			
-		
+		return $page_profile;	
     }
     
 	//Chua chay duoc
@@ -252,7 +249,9 @@ class Ishali_Facebook extends Ishali_Api{
  	public function getpage_app_redirect()
     {    	
     	$pagelink = Ishali_Facebook::getpagelink();
+		
     	$appid = Ishali_Facebook::getFB()->getAppId();
+		
     	return $pagelink."?sk=app_".$appid;
     	
     }
