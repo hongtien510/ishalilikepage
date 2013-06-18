@@ -5,7 +5,7 @@ class App_Controller_FrontController extends Zend_Controller_Action {
     }
 
     public function preDispatch() {
-	
+		$this->_SESSION=new Zend_Session_Namespace();
         $facebook = new Ishali_Facebook();
 		$config = Zend_Registry::get(APPLICATION_CONFIG);
 		$pageLike = App_Models_PagelikeModel::getInstance();
@@ -13,13 +13,27 @@ class App_Controller_FrontController extends Zend_Controller_Action {
 		
 		if($facebook->getpageid() != "")
 		{
-			@$idpage = $facebook->getpageid();
-			@$_SESSION['idpage'] = $idpage;
+			$idpage = $facebook->getpageid();
+			$_SESSION['idpage'] = $idpage;
 		}
 		else
 		{
-			@$idpage = $_SESSION['idpage'];
+			$idpage = $_SESSION['idpage'];
 		}
+		
+
+		if(!isset($_SESSION['userLike']))
+		{
+			$_SESSION['userLike'] = time();
+			$userLike = $_SESSION['userLike'];
+		}
+		else
+		{
+			$userLike = $_SESSION['userLike'];
+		}
+
+		
+		
 		/*
 		$infoPage = $pageLike->thongTinTrang($idpage);
 		
