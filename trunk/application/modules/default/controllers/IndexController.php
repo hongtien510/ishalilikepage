@@ -21,9 +21,10 @@ class IndexController extends App_Controller_FrontController {
 		else
 		{
 			$idpage = @$_SESSION['idpage'];
-			$pageLike->luuMacAdressLikePage($idpage);//Sau khi like page, sẽ luu dia chi Mac va idPage
+			$userLike = $_SESSION['userLike'];
+			$pageLike->luuSessionUserLikePage($userLike, $idpage);//Sau khi like page, sẽ luu dia chi Mac va idPage
 		
-			$soLuotLikeTrongNgay = $pageLike->soLuotLikeTrongNgay();
+			$soLuotLikeTrongNgay = $pageLike->soLuotLikeTrongNgay($userLike);
 			
 			$data = $pageLike->getConfig();//Lay Gia Tri Bang Config
 			$solanlike = $data['solanlike'];
@@ -37,7 +38,7 @@ class IndexController extends App_Controller_FrontController {
 					for($i=0; $i<count($data); $i++)
 					{
 						$idpage = $data[$i]['idpage'];
-						$checkLikePage = $pageLike->checkLikePage($idpage);
+						$checkLikePage = $pageLike->checkLikePage($userLike, $idpage);
 						if($checkLikePage == 1)//Page nay chua duoc like
 						{
 							if($fb->getParameterUrl() == "")

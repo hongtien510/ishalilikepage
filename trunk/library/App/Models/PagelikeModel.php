@@ -135,24 +135,22 @@ class App_Models_PagelikeModel {
 			return $data[0]['linktintuc'];
 	}
 	
-	public function soLuotLikeTrongNgay()
+	public function soLuotLikeTrongNgay($userLike)
 	{
 		$store = App_Models_StoreModel::getInstance();
-		$macAdress = $this->getMacAddress();
 		$datenow = date("Y-m-d");
 		
-		$sql = "select iduserlike from ishali_user_like where iduserfb = '". $macAdress ."' and datelike = '". $datenow ."'";
+		$sql = "select iduserlike from ishali_user_like where iduserfb = '". $userLike ."' and datelike = '". $datenow ."'";
 		$data = $store->SelectQuery($sql);
 		return count($data);
 		
 	}
 	
-	public function checkLikePage($idpage)
+	public function checkLikePage($userLike, $idpage)
 	{
 		$store = App_Models_StoreModel::getInstance();
-		$macAdress = $this->getMacAddress();
 		$datenow = date("Y-m-d");
-		$sql = "select iduserlike from ishali_user_like where iduserfb = '". $macAdress ."' and idpage = '". $idpage ."'";
+		$sql = "select iduserlike from ishali_user_like where iduserfb = '". $userLike ."' and idpage = '". $idpage ."'";
 		$data = $store->SelectQuery($sql);
 		if(count($data)==0)
 			return 1;
@@ -167,6 +165,16 @@ class App_Models_PagelikeModel {
 		$datenow = date("Y-m-d");
 		
 		$sql = "insert into ishali_user_like(iduserfb, idpage, datelike) values('$macAdress', '$idpage', '$datenow')";
+		$data = $store->InsertDeleteUpdateQuery($sql);
+		return $data;
+	}
+	
+	public function luuSessionUserLikePage($userLike, $idpage)
+	{
+		$store = App_Models_StoreModel::getInstance();
+		$datenow = date("Y-m-d");
+		
+		$sql = "insert into ishali_user_like(iduserfb, idpage, datelike) values('$userLike', '$idpage', '$datenow')";
 		$data = $store->InsertDeleteUpdateQuery($sql);
 		return $data;
 	}
