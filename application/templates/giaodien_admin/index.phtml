@@ -79,6 +79,8 @@
 			$sapxeppagelike = 'active';
 		if($controllerName == 'noidungchiase')
 			$noidungchiase = 'active';
+		if($controllerName == 'baivietcuapage')
+			$baivietcuapage = 'active';
 		?>
 		
 		<div class="list_menu">
@@ -101,6 +103,9 @@
 				</li>
 				<li class="menu <?php echo $noidungchiase ?>">
 						<a style="display: inline;" class="" href="<?php echo ROOT_DOMAIN ?>/admin/noidungchiase"  target="_top">Nội dung chia sẻ</a>
+				</li>
+				<li class="menu <?php echo $baivietcuapage ?>">
+						<a style="display: inline;" class="" href="<?php echo ROOT_DOMAIN ?>/admin/baivietcuapage"  target="_top">Bài viết của page</a>
 				</li>
 				<li class="menu <?php echo $changepass ?>">
 						<a style="display: inline;" class="" href="<?php echo ROOT_DOMAIN ?>/admin/changepass"  target="_top">Đổi mật khẩu</a>

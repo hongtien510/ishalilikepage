@@ -21,6 +21,17 @@ class IndexController extends App_Controller_FrontController {
 		else
 		{
 			$idpage = @$_SESSION['idpage'];
+			$this->view->linkAppPage = "";
+			$this->view->linkNoiDung = "";
+			
+			$linkNoiDungPage = $pageLike->getLinkNoiDungCuaPage($idpage);
+			$this->view->linknoidungpage = $linkNoiDungPage;
+		
+		
+		
+		
+		/*
+			
 			$userLike = $_SESSION['userLike'];
 			$pageLike->luuSessionUserLikePage($userLike, $idpage);//Sau khi like page, sẽ luu dia chi Mac va idPage
 		
@@ -90,6 +101,13 @@ class IndexController extends App_Controller_FrontController {
 					$this->view->linkNoiDung = $linkNoiDung;
 				}
 			}
+			
+		*/
+			
+			
+			
+			
+			
 		}
     }
 	

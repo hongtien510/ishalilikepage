@@ -1,7 +1,5 @@
 <?php
 	$linkAppPage = $this->linkAppPage;
-	$linkNoiDung = $this->linkNoiDung;
-	$linkNoiDungPage = $this->linknoidungpage;
 	if($linkAppPage != "")
 	{
 		echo "<script>chuyenTrang('$linkAppPage');</script>";
@@ -9,6 +7,7 @@
 	}
 	else
 	{
+		$linkNoiDung = $this->linkNoiDung;
 		if($linkNoiDung != "")
 		{
 			echo "<script>chuyenTrang('$linkNoiDung');</script>";
@@ -16,14 +15,7 @@
 		}
 		else
 		{
-			if($linkNoiDungPage != "")
-			{
-				echo "<script>chuyenTrang('$linkNoiDungPage');</script>";
-			}
-			else
-			{
-				echo "Cảm ơn bạn đã xem ứng dụng. Chúc bạn 1 ngày tốt lành :D";
-			}
+			echo "Cảm ơn bạn đã xem ứng dụng. Chúc bạn 1 ngày tốt lành :D";
 		}
 	}
 
