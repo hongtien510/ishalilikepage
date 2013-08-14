@@ -82,6 +82,8 @@ class App_Models_PagelikeModel {
 		else
 			return "";
 	}
+	
+
 
 	
 	public function checkPagelike($idpage)
@@ -200,6 +202,16 @@ class App_Models_PagelikeModel {
 		$sql = "insert into ishali_user_like(iduserfb, datelike, idpage) values('$macId', now(), '$idPage')";
 		$data = $store->InsertDeleteUpdateQuery($sql);
 		return $data;
+	}
+	
+	public function getLinkNoiDungCuaPage($idpage)
+	{
+		$store = App_Models_StoreModel::getInstance();
+		$sql = "SELECT linktintuc ";
+		$sql.= "FROM ishali_noidung_chiase inc, ishali_noidung_page inp ";
+		$sql.= "WHERE inc.idnoidung = inp.idnoidung AND inp.idpage =  '$idpage'";
+		$data = $store->SelectQuery($sql);
+		return $data[0]['linktintuc'];
 	}
 	
 	

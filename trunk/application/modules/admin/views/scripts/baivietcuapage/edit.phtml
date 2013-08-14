@@ -1,0 +1,37 @@
+<?php
+	$listPageLike = $this->listPageLike;
+	$noidungchiase = $this->noidungchiase;
+?>
+
+<p class="title_page">Thêm nội dung chia sẻ mới</p>
+<form action="<?php echo APP_DOMAIN ?>/admin/baivietcuapage/edit?idpage=<?php echo $_GET['idpage'] ?>" method="post">
+
+<table class="table_config" border="1">
+	<tr>
+		<td width="30%">Fanpage</td>
+		<td>
+			<?php echo $this->pagename ?>
+		</td>
+	</tr>
+	<tr>
+		<td >Bài viết</td>
+		<td>
+			<select class="selectstyle_1" name="baiviet">
+			<?php
+				for($i=0; $i<count($noidungchiase); $i++)
+				{
+			?>
+				<option value="<?php echo $noidungchiase[$i]['idnoidung'] ?>"><?php echo $noidungchiase[$i]['tieude'] ?></option>
+			<?php 
+				}
+			?>
+			</select>
+		</td>
+	</tr>
+	
+	<tr>
+		<td></td>
+		<td><input type="submit" name="luunoidung" value="Lưu nội dung"/></td>
+	</tr>
+</table>
+</form>

@@ -15,7 +15,7 @@ define('LAYOUT_PATH', APPLICATION_PATH . '/layouts');
 define('APP_DOMAIN', 'http://localhost/appfb/ishalilikepage'); // Khong duoc co dau "/" o cuoi
 define('FB_APP_DOMAIN', 'http://apps.facebook.com/likenhieupage');
 
-define('ROOT_DOMAIN', FB_APP_DOMAIN);
+define('ROOT_DOMAIN', APP_DOMAIN);
 
 define('APP_ID', '471098706300915');
 
